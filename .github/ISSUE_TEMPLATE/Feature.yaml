@@ -1,0 +1,44 @@
+name: Feature
+description: Neues Feature für den Anwender
+labels:
+  - Feature
+projects:
+  - Kykoss/2DPlatformer
+body:
+  - type: dropdown
+    id: size
+    attributes:
+      label: Größe
+      description: Wie groß ist der erwartete Aufwand?
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL 
+    validations:
+      required: true
+  - type: textarea
+    id: kurzbeschreibung
+    attributes:
+      label: Kurzbeschreibung
+    validations:
+      required: true
+  - type: textarea
+    id: abnahme
+    attributes:
+      label: Was muss erreicht werden damit das Feature abgeschlossen ist?
+    validations:
+      required: true
+  - type: textarea
+    id: potenzielle-ideen
+    attributes:
+      label: Lösungideen
+    validations:
+      required: false
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Anhang
+    validations:
+      required: false

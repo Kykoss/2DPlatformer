@@ -1,0 +1,74 @@
+name: Bug
+description: Fehler innerhalb der Anwendung
+labels:
+  - Bug
+projects:
+  - Kykoss/2DPlatformer
+body:
+  - type: dropdown
+    id: wer-gefunden
+    attributes:
+      label: Wer hat den Bug gefunden
+      description: How can we get in touch with you if we need more info?
+      options:
+        - Leon
+        - Robin
+        - Jan
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Schweregrad
+      description: Wie kritisch ist der Bug?
+      options:
+        - Trivial
+        - Niedrig
+        - Hoch
+        - Kritisch
+        - Blocker 
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Größe
+      description: Wie groß ist der erwartete Aufwand
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL 
+    validations:
+      required: true
+  - type: textarea
+    id: kurzbeschreibung
+    attributes:
+      label: Kurzbeschreibung
+    validations:
+      required: true
+  - type: textarea
+    id: reproduzieren
+    attributes:
+      label: Wie reproduziert man den Bug?
+    validations:
+      required: true
+  - type: textarea
+    id: potenzielle-ursachen
+    attributes:
+      label: Potenzielle Ursachen
+    validations:
+      required: false
+  - type: textarea
+    id: potenzielle-ideen
+    attributes:
+      label: Lösungideen
+    validations:
+      required: false
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Anhang
+    validations:
+      required: false
