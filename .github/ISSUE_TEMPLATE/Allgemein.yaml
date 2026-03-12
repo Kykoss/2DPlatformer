@@ -1,0 +1,36 @@
+name: Allgemein
+description: Allgemeine Punkte die weder ein Feature noch ein Bug sind (z.B. Verbesserungen)
+projects:
+  - Kykoss/2DPlatformer
+body:
+  - type: textarea
+    id: kurzbeschreibung
+    attributes:
+      label: Kurzbeschreibung
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Größe
+      description: Wie groß ist der erwartete Aufwand?
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL 
+    validations:
+      required: true
+  - type: textarea
+    id: potenzielle-ideen
+    attributes:
+      label: Lösungideen
+    validations:
+      required: false
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Anhang
+    validations:
+      required: false
