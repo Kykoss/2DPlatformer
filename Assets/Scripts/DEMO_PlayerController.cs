@@ -48,10 +48,10 @@ public class DEMO_PlayerController : MonoBehaviour
     {
         // Input actons
         moveAction.started += OnMoveStarted;
-        //moveAction.performed += onMove;
         moveAction.canceled += OnMoveCanceled;
         
-        
+
+
 
     }
 
@@ -69,7 +69,16 @@ public class DEMO_PlayerController : MonoBehaviour
         if (isMoving)
         {
             onMove(moveDirection, moveSpeed);
+
         }
+
+        if (jumpAction.IsPressed() && isGrounded)
+        {
+            
+            OnJump();
+        }
+
+
         
     }
     
@@ -88,10 +97,15 @@ public class DEMO_PlayerController : MonoBehaviour
             
 
             // velo = dir * speed
-            Vector2 velocity = new Vector2((direction.x * moveSpeed),0);
-
-            slideResults = rb.Slide(velocity, Time.deltaTime, slideMovement);
+            Vector2 velocity = new Vector2((direction.x * moveSpeed), rb.position.y) ;
             
+            //rb.AddForceX(velocity.x, ForceMode2D.Force);
+            
+            //rb.AddRelativeForceX(velocity.x);
+
+            rb.linearVelocityX = velocity.x;
+            //slideResults = rb.Slide(velocity, Time.deltaTime, slideMovement);
+
         }
 
 
@@ -109,6 +123,18 @@ public class DEMO_PlayerController : MonoBehaviour
         moveDirection = Vector2.zero;
         isMoving = false;
     }
-    
 
+    void OnJump()
+    {
+        rb.AddForceY(jumpforce,ForceMode2D.Impulse);
+        
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("Colliding with " + other.GetType().ToString());
+        isGrounded = true;
+    }
+    
+    
 }
