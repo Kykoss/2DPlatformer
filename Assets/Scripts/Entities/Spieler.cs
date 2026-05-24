@@ -8,7 +8,20 @@ namespace Assets.Scripts.Entities
     {
         private Vector2 AktuelleGeschwindigkeit { get; set; }
 
+        [field: SerializeField]
+        private AudioSource SprungSound { get; set; }
+
+        [field: SerializeField]
+        private AudioSource LandungSound { get; set; }
+
+        [field: SerializeField]
+        private AudioSource GehenSound { get; set; }
+
         private bool StoppeXBewegung { get; set; }
+
+        private bool IsInYBewegung { get; set; }
+
+        private bool IsInXBewegung { get; set; }
 
         // Update is called once per frame
         void Update()
@@ -22,6 +35,8 @@ namespace Assets.Scripts.Entities
 
             this.Bewegen(this.AktuelleGeschwindigkeit);
             this.UpdateAnimationsVariablen();
+            this.UpdateBewegungsVariablen();
+            this.UpdateGehenSoundPlayback();
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -45,10 +60,49 @@ namespace Assets.Scripts.Entities
                 this.Animator.SetBool("IstGeduckt", true);
             }
         }
-
+        
         public void OnJump(InputAction.CallbackContext context)
         {
-            this.Springen();
+            if (!this.IsInYBewegung)
+            {
+                this.SprungSound.Play();
+                this.Springen();
+                
+            }            
+        }
+
+        private void UpdateBewegungsVariablen()
+        {
+            if (this.IsInXBewegung && this.Rigidbody2D.linearVelocityX == 0)
+            {
+                this.IsInXBewegung = false;
+            }
+            else if (!this.IsInXBewegung && this.Rigidbody2D.linearVelocityX != 0)
+            {
+                this.IsInXBewegung = true;
+            }
+
+            if (this.IsInYBewegung && this.Rigidbody2D.linearVelocityY == 0)
+            {
+                this.LandungSound.Play();
+                this.IsInYBewegung = false;
+            }
+            else if (!this.IsInYBewegung && this.Rigidbody2D.linearVelocityY != 0)
+            {
+                this.IsInYBewegung = true;
+            }
+        }
+
+        private void UpdateGehenSoundPlayback()
+        {
+            if (this.GehenSound.isPlaying && (this.IsInYBewegung || !this.IsInXBewegung))
+            {
+                this.GehenSound.Stop();
+            }
+            else if (!this.GehenSound.isPlaying && this.IsInXBewegung && !this.IsInYBewegung)
+            {
+                this.GehenSound.Play();
+            }
         }
     }
 }
